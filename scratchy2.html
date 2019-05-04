@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--script type="text/javascript" src="https://unpkg.com/bsv@0.26.4/bsv.min.js"></script-->
+    <script src="https://www.moneybutton.com/moneybutton.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--link rel="stylesheet" type="text/css" href="site.css"-->
+    <!--link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" /-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--meta name="viewport" content="width=device-width, initial-scale=1"-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </head>
+  <!-- style="background-color:#2BB56D"-->
+  <body>
+    <div class="container">
+      <div class="jumbotron  text-center">
+        <h1><img src="content/inspect.gif" style="float:center;width:60px;height:60px;">Scratchy<i class="material-icons prefix" style="font-size: 100%"">lock</i></h1>
+        <p style="font-size: 200%;">Keep your doodles safely stashed away on the BSV blockchain with AES 128 military grade encryption<p>
+        </div>
+        <div class="question-and-answer-body">
+          <div class="question-and-answer-container">
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">mode_edit</i>
+                <textarea class="materialize-textarea" id="scratchPad"  name="scratchPad" cols = "300", rows = "8", style="font-size: 200%;border-radius: 6px;" ></textarea>
+                <label for="scratchPad" >Scratch Pad</label>
+              </div>
+              <div class="row">
+                <div class="input-field col s6">
+                  <i class="material-icons prefix">account_circle</i>
+                  <input id="userHandle" name="userHandle" type="text" class="validate" style="font-size: 200%; border-radius: 6px;">
+                  <label for="userHandle">User Name</label>
+                </div>
+                <div class="input-field col s6">
+                  <i class="material-icons prefix">lock</i>
+                  <input id="userPassword" type="password" class="validate" name="userPassword" style="font-size: 200%; border-radius: 6px;">
+                  <label for="userPassword">Password</label>
+                </div>
+                <div class="input-field col s4">
+                <button class="btn waves-effect waves-light" type="submit" name="getScratchPad" id="getScratchPad">Fetch Scratch Pad
+                <i class="material-icons left">send</i>
+                </button>
+              </div>
+              <div class="input-field col s4">
+                <button class="btn waves-effect waves-light" type="submit" name="sendScratchPad" id="sendScratchPad">Send Scratch Pad
+                <i class="material-icons left">send</i>
+                </button>
+              </div>
+              <div class="input-field col s4">
+                <div id='my-money-button'></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script src="bundle.js"></script>
+      </body>
+    </html>
