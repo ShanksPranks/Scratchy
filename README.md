@@ -29,7 +29,7 @@ To be able to issue each user with a re-useable routing address without saving a
 This ensures that even if the private key of the routing address is compromised the security impact is negligeable as it's just the users username and not intended to be confidential. We can also display the private key of the routing address to the user should they ever want to recover the dust that has been sent their during their time using the Scratchy protocol, what is dust today might be grocery money one day in the future! 
 
 ## Event Service API
-The event service API is a restfull API that is able to perfrom 2 main functions:
+The event service API is a restfull API that is able to perfrom 5 main functions:
 1. It allows scratchy users to POST new events.
 2. It allows scratchy users to GET current events (without the event password) into the events drop down menu provided that the current date is between the event start and event end date.
 3. It is able to accept users unencrypted scratchpads via POST and then encrypt them and store them in it's database.  
@@ -45,5 +45,6 @@ Some examples of potential applications are as follows:
 When the test is over the username and password for the event becomes public and everyone can view all submissions.
 3. Fun Scavenger hunt - Similarly to the example above, the unique event id for the scaveneger hunt is shared with the participants. The team leader can then choose the event from the dropdown list inside the scratchy app which will automatically direct the traffic to the event microservice over https. As soon as a team finds an item in the scavenger hunt they can quickly post the details to the event url proving that they found the item before other teams.
 4. Silent Auction - Once again using the event microservice, attendees of a silent auction will choose the event and then begin bidding on an item that desire. The event can be set up in the microservice so that not even the organiser is allowed to view the posted data until after the auction is finished ensuring a totally blind and silent auction with no tempering.
+5. An inventor wants to copywrite an idea that they have come up with but they do not want to sharre the idea publicly yet. By using the scratchy app to quickly jot down the idea and send it to the blockchain encrypted they can now prove that they were in posession of the idea at that point in time should anyone try to file a patent for the same idea later.
 
 

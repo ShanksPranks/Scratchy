@@ -25858,7 +25858,6 @@ var allScratchyTransactions = [];
 var allOP_RETURNs = [];
 var allScratchPads = [];
 var foundPad = false;
-var eventSelectList;
 var event;
 var payloadASM;
 var delayInMilliseconds = 700; //0.7 second
@@ -25879,6 +25878,7 @@ var userPasswordField = document.getElementById('userPassword');
 var scratchPadField = document.getElementById('scratchPad'); 
 var menu = document.getElementById('menuButton');
 var infoButton = document.getElementById('infoButton');
+var eventList = document.getElementById('eventList');
 
 // listeners
 buttonGet.addEventListener('click', fetchTransactions);
@@ -25893,13 +25893,25 @@ scratchPadField.addEventListener('change', updatePass);
   });
 infoButton.addEventListener('click', showInfo);
 
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems, {});
+  });
+
+eventList.addEventListener('click', showEvents);
+
 function showInfo()
 {
 	var elems = document.querySelectorAll('.tooltipped');
-	console.log(elems);
-var instance = M.Tooltip.getInstance(elems[0]);
-console.log(instance);
-instance.open();
+  var instance = M.Tooltip.getInstance(elems[0]);
+  instance.open();
+}
+
+function showEvents()
+{
+  var elems = document.querySelectorAll('select');
+  var instance = M.FormSelect.getInstance(elems[0]);
+  event = instance.getSelectedValues();
 }
 
  //uncomment for browserfy 
@@ -25926,22 +25938,11 @@ instance.open();
 // re-fetch dom fields
 function refreshValues()
 {
-//eventSelectList = document.getElementById("eventSelectList");
-//event =  eventSelectList.options[eventSelectList.selectedIndex].text;
 userHandle = document.getElementById("userHandle").value;
 scratchPad = document.getElementById("scratchPad").value;
 userPassword = document.getElementById("userPassword").value;
 userAddress = document.getElementById("addr").value;
-
 }
-
-// for testing
-/*
-var eventSelectList = 'none';
-var userHandle = 'shankspranks';
-var scratchPad = '';
-var userPassword = 'Dogfish10';
-*/
 
 // this function sends the username to the brainwallet library to get the routing address
 function updatePass()
@@ -26104,9 +26105,6 @@ function testScratchFound(decryptedScriptIn)
 	}
 }
 
-// tests 
-
-//fetchTransactions();
 
 
 },{"bsv":178,"crypto":60,"https":103}],174:[function(require,module,exports){
