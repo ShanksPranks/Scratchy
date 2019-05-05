@@ -1,8 +1,14 @@
 /* eslint-disable class-methods-use-this */
 import db from '../db/event_db';
 
+function hidePassword(value, index, array) {
+  value["eventPassword"] = "********";
+}
+
 class EventsController {
   getAllEvents(req, res) {
+    var safeDB = db;
+    safeDB.forEach(hidePassword);
     return res.status(200).send({
       success: 'true',
       message: 'Events retrieved successfully',
@@ -11,9 +17,10 @@ class EventsController {
   }
 
   getEvent(req, res) {
-    const eventeventID = parseInt(req.params.eventeventID, 10);
+    const eventID = parseInt(req.params.eventID, 10);
     db.map((Event) => {
-      if (Event.eventeventID === eventeventID) {
+      if (Event.eventID === eventID) {
+        Event.eventPassword = "********";
         return res.status(200).send({
           success: 'true',
           message: 'Event retrieved successfully',
@@ -52,7 +59,7 @@ class EventsController {
       });
     }
     const Event = {
-      eventeventID: db.length + 1,
+      eventID: db.length + 1,
       eventName: req.body.eventName,
       eventStartDate: req.body.eventStartDate,
       eventStartDate: req.body.eventEndDate,
@@ -68,10 +75,12 @@ class EventsController {
 
   updateEvent(req, res) {
     const eventID = parseInt(req.params.eventID, 10);
+    const eventPassword = req.params.eventPassword;
     let EventFound;
     let itemIndex;
     db.map((Event, index) => {
-      if (Event.eventID === eventID) {
+      if ((Event.eventID === eventID)
+        && (Event.eventPassword === eventPassword)) {
         EventFound = Event;
         itemIndex = index;
       }
@@ -83,23 +92,12 @@ class EventsController {
         message: 'Event not found',
       });
     }
-
     if (!req.body.eventName) {
       return res.status(400).send({
         success: 'false',
         message: 'eventName is required',
       });
-    } else if (!req.body.eventStartDate) {
-      return res.status(400).send({
-        success: 'false',
-        message: 'eventStartDate is required',
-      });
-    }    else if (!req.body.eventEndDate) {
-      return res.status(400).send({
-        success: 'false',
-        message: 'eventEndDate is required',
-      });
-    }
+    } 
     else if (!req.body.eventPassword) {
       return res.status(400).send({
         success: 'false',

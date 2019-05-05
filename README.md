@@ -28,6 +28,14 @@ This means that each time they post their data to the blockchain using OP_RETURN
 To be able to issue each user with a re-useable routing address without saving any sensitive information the implementation uses the legacy brainwallet library to generate the routing address form the users username.
 This ensures that even if the private key of the routing address is compromised the security impact is negligeable as it's just the users username and not intended to be confidential. We can also display the private key of the routing address to the user should they ever want to recover the dust that has been sent their during their time using the Scratchy protocol, what is dust today might be grocery money one day in the future! 
 
+## Event Service API
+The event service API is a restfull API that is able to perfrom 2 main functions:
+1. It allows scratchy users to POST new events.
+2. It allows scratchy users to GET current events (without the event password) into the events drop down menu provided that the current date is between the event start and event end date.
+3. It is able to accept users unencrypted scratchpads via POST and then encrypt them and store them in it's database.  
+4. It allows the client to GET a users encrypted scratchpad from it's database.
+5. The user can update an event start and end date by sending through a PUT command with the new dates.
+
 ## Applications
 The scratchy protocol opens up to a huge number of applications when the protocol is hosted within an event microservice. In this implementation the username and password / passphrase is tied to an event and time period and stored securely as a json object on a microservice, anyone who knows the event ID can then POST their scratchpad unencrypted over https to the event url and the encryption is handled inside the microservice before being posted to the blockchain.
 
