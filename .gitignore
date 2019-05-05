@@ -1,3 +1,4 @@
 node_modules/
 event_service/node_modules
+event_service/package-lock.json
 
