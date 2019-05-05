@@ -1,5 +1,5 @@
 # Scratchy
-![alt text](https://www.catship.co.za/scratchy/content/UITeaser.png)
+![alt text](https://www.catship.co.za/scratchy/content/UITeaser.png =250x)
 Scratchy is a pure client side protocol for encrypting, storing and retrieving data on the BSV blockchain at scale.
 
 ## Overview
