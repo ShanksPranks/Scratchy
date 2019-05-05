@@ -11,16 +11,28 @@ var allScratchPads = [];
 var foundPad = false;
 var eventSelectList;
 var event;
-var userHandle = "";
-var scratchPad;
-var userPassword = "";
 var payloadASM;
+
+// dom variables
+var userHandle = document.getElementById('userHandle').value;
+var scratchPad = document.getElementById("scratchPad").value;
+var userPassword = document.getElementById('userPassword').value; 
+var userAddress = document.getElementById('addr').value;
+
+// dom elements
 var buttonGet = document.getElementById('getScratchPad'); 
-buttonGet.addEventListener('click', fetchTransactions);
 var buttonSend = document.getElementById('sendScratchPad'); 
+var pass = document.getElementById('pass'); 
+var userHandleField = document.getElementById('userHandle');
+var userPasswordField = document.getElementById('userPassword'); 
+var scratchPadField = document.getElementById('scratchPad'); 
+
+// listeners
+buttonGet.addEventListener('click', fetchTransactions);
 buttonSend.addEventListener('click', encryptScratchPad);
-//scratchPad = document.getElementById('scratchPad'); 
-//scratchPad.addEventListener('change', encryptScratchPad);
+userHandleField.addEventListener('change', updatePass);
+userPasswordField.addEventListener('change', updatePass);
+scratchPadField.addEventListener('change', updatePass);
 
 
  //uncomment for browserfy 
@@ -36,7 +48,7 @@ buttonSend.addEventListener('click', encryptScratchPad);
       currency: "BSV"
     },
     {
-      to: "1ScraTcivKYpoSbjoY8qig7hf87iWZexg",
+      to: userAddress, // "1MHL2wMfNDsywbQ9fuC6oFpJ4oSfBHCmz4",//"1ScraTcivKYpoSbjoY8qig7hf87iWZexg",
       amount: "0.00001",
       currency: "BSV"
     }
@@ -52,6 +64,7 @@ function refreshValues()
 userHandle = document.getElementById("userHandle").value;
 scratchPad = document.getElementById("scratchPad").value;
 userPassword = document.getElementById("userPassword").value;
+userAddress = document.getElementById("addr").value;
 }
 
 // for testing
@@ -61,7 +74,14 @@ var userHandle = 'shankspranks';
 var scratchPad = '';
 var userPassword = 'Dogfish10';
 */
-
+function updatePass()
+{   
+	refreshValues();
+	console.log('assigning field..');
+	document.getElementById("pass").value = userPassword+userHandle;
+	var event = new Event('change');
+    pass.dispatchEvent(event);
+}
 
 function encryptScratchPad()
 {
@@ -140,7 +160,7 @@ function fetchDataGeneric(urlIn, functionIn)
 function populateAllTrans(dataIn)
 {
 	var objIn = JSON.parse(dataIn);
-	allScratchyTransactions = objIn["data"]["1ScraTcivKYpoSbjoY8qig7hf87iWZexg"]["transactions"]; 
+	allScratchyTransactions = objIn["data"][userAddress]["transactions"]; 
 	allScratchyTransactions.forEach(getOPReturnData);
 
 }
@@ -166,7 +186,7 @@ function fetchTransactions()
 	console.log("fetch transactions");
 	document.getElementById("scratchPad").value = "";
 	foundPad = false;
-	var url =  "https://api.blockchair.com/bitcoin-sv/dashboards/address/1ScraTcivKYpoSbjoY8qig7hf87iWZexg";
+	var url =  "https://api.blockchair.com/bitcoin-sv/dashboards/address/" + userAddress;
     fetchDataGeneric(url, populateAllTrans);
 }
 
