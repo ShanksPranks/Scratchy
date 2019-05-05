@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--link rel="stylesheet" href="site.css"-->
+    <script src="https://www.moneybutton.com/moneybutton.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="brainwallet\bitcoinjs-min.js"></script>
+    <script src="brainwallet\qrcode.js"></script>
+    <script src="brainwallet\brainwallet.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </head>
+  <body>
+
+      <div class="jumbotron  text-center" style="margin:0;">
+ <button class="btn tooltipped" data-position="left" type="submit" name="infoButton" id="infoButton" data-tooltip=
+ "<p>Enter data in the scratch pad and then enter a unique username and very strong password / passphrase and hit the send button. <p>Swipe the money button to complete the transaction and save your data encrypted to the BSV blockchain. <p>Once you have sent the data you can easily retrieve it and decrypt it again by clicking the fetch button.
+ " style="float:right;">
+            <i class="material-icons prefix">info</i>
+            </button>
+          
+      <h1>
+        <img src="content/inspect.gif" style="float:center;width:60px;height:60px;">Scratchy<i class="material-icons prefix">lock</i>
+      </h1>
+      <p style="font-size: 90%">Keep your doodles safely stashed away on the BSV blockchain with AES 128 encryption<p>
+      </div>
+      <input class="validate" id="pass" type="hidden"/>
+      <input class="validate" id="addr" type="hidden" />
+      <input class="validate" id="hash" type="hidden"/>
+      <input class="validate" id="pub" type="hidden"/>
+      <input class="validate" id="h160" type="hidden" />
+      <input class="validate" id="sec" type="hidden" />
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">mode_edit</i>
+          <textarea class="materialize-textarea" id="scratchPad"  name="scratchPad"></textarea>
+          <label for="scratchPad" >Scratch Pad</label>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="userHandle" name="userHandle" type="text" class="validate">
+            <label for="userHandle">User Name</label>
+          </div>
+          <div class="input-field col s6">
+            <i class="material-icons prefix">lock</i>
+            <input id="userPassword" type="password" class="validate" name="userPassword">
+            <label for="userPassword">Password</label>
+          </div>
+          <div class="input-field col s6">
+            <button class="btn waves-effect waves-light" type="submit" name="getScratchPad" id="getScratchPad">Fetch
+            <i class="material-icons left">send</i>
+            </button>
+          </div>
+          <div class="input-field col s6">
+            <button class="btn waves-effect waves-light" type="submit" name="sendScratchPad" id="sendScratchPad">Send
+            <i class="material-icons left">send</i>
+            </button>
+          </div>
+          <div class="input-field col s6">
+            <div id='my-money-button'></div>
+          </div>
+          <!--/div-->
+          <script src="bundle.js"></script>
+        </body>
+      </html>

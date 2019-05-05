@@ -25852,6 +25852,7 @@ function extend() {
 var crypto = require('crypto');
 const https = require('https');
 let bsv = require('bsv');
+
 //global variables
 var allScratchyTransactions = [];
 var allOP_RETURNs = [];
@@ -25861,6 +25862,7 @@ var eventSelectList;
 var event;
 var payloadASM;
 var delayInMilliseconds = 700; //0.7 second
+var menuOpen = false;
 
 // dom variables
 var userHandle = document.getElementById('userHandle').value;
@@ -25875,6 +25877,8 @@ var pass = document.getElementById('pass');
 var userHandleField = document.getElementById('userHandle');
 var userPasswordField = document.getElementById('userPassword'); 
 var scratchPadField = document.getElementById('scratchPad'); 
+var menu = document.getElementById('menuButton');
+var infoButton = document.getElementById('infoButton');
 
 // listeners
 buttonGet.addEventListener('click', fetchTransactions);
@@ -25883,6 +25887,20 @@ userHandleField.addEventListener('change', updatePass);
 userPasswordField.addEventListener('change', updatePass);
 scratchPadField.addEventListener('change', updatePass);
 
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.tooltipped');
+    var instances = M.Tooltip.init(elems, {});
+  });
+infoButton.addEventListener('click', showInfo);
+
+function showInfo()
+{
+	var elems = document.querySelectorAll('.tooltipped');
+	console.log(elems);
+var instance = M.Tooltip.getInstance(elems[0]);
+console.log(instance);
+instance.open();
+}
 
  //uncomment for browserfy 
  function buildMoneyButton()
@@ -25897,15 +25915,15 @@ scratchPadField.addEventListener('change', updatePass);
       currency: "BSV"
     },
     {
-      to: userAddress, // "1MHL2wMfNDsywbQ9fuC6oFpJ4oSfBHCmz4",//"1ScraTcivKYpoSbjoY8qig7hf87iWZexg",
-      amount: "0.00001",
+      to: userAddress, 
+      amount: "0.00001", // should this grow depending ont he size of the scracthpad?
       currency: "BSV"
     }
     ]
   })
 }
 
-// fetch dom fields
+// re-fetch dom fields
 function refreshValues()
 {
 //eventSelectList = document.getElementById("eventSelectList");
@@ -25914,6 +25932,7 @@ userHandle = document.getElementById("userHandle").value;
 scratchPad = document.getElementById("scratchPad").value;
 userPassword = document.getElementById("userPassword").value;
 userAddress = document.getElementById("addr").value;
+
 }
 
 // for testing
@@ -25923,15 +25942,17 @@ var userHandle = 'shankspranks';
 var scratchPad = '';
 var userPassword = 'Dogfish10';
 */
+
+// this function sends the username to the brainwallet library to get the routing address
 function updatePass()
 {   
 	refreshValues();
-	console.log('assigning field..');
-	document.getElementById("pass").value = userPassword+userHandle;
+	document.getElementById("pass").value = userHandle;
 	var event = new Event('change');
     pass.dispatchEvent(event);
 }
 
+// encrypt the scratch pad
 function encryptScratchPad()
 {
 	setTimeout(function() {
@@ -25955,34 +25976,34 @@ function encryptScratchPad()
 	var encryptedScratchPad = encryptData(scratchPad);
 	var payload = 'OP_RETURN '+encryptedScratchPad;
     payloadASM = bsv.Script.buildDataOut(['scratchy.io', 'utf8', payload]).toASM();
-    console.log(payloadASM);
+    //console.log(payloadASM);
     buildMoneyButton();
 
     }, delayInMilliseconds);
 }
 
-
+// decrypt the scratch pad
 function decryptScratchPad(dataIn)
 {
 	refreshValues();
 	return decryptData(dataIn);
 }
 
+// generic encrypt 
 function encryptData(dataIn)
 {
-var passCombo = userPassword+userHandle;
-var mykey = crypto.createCipher('aes-128-cbc', passCombo);
+var mykey = crypto.createCipher('aes-128-cbc', userPassword);
 var mystr = mykey.update(dataIn, 'utf8', 'hex');
 mystr += mykey.final('hex');
 return mystr;
 }
 
+// generic decrypt 
 function decryptData(dataIn)
 {
 try
 {
-var passCombo = userPassword+userHandle;
-var mykey = crypto.createDecipher('aes-128-cbc', passCombo);
+var mykey = crypto.createDecipher('aes-128-cbc', userPassword);
 var mystr = mykey.update(dataIn, 'hex', 'utf8')
 mystr += mykey.final('utf8');
 return mystr;
@@ -26010,6 +26031,7 @@ function fetchDataGeneric(urlIn, functionIn)
 
 }
 
+// handler for parsing op return data from raw tx's
 function populateAllTrans(dataIn)
 {
 	var objIn = JSON.parse(dataIn);
@@ -26018,9 +26040,10 @@ function populateAllTrans(dataIn)
 
 }
 
+// retrieves all transactions for user address
 function fetchTransactions()
 {
-	setTimeout(function() {
+	setTimeout(function() { 
 
 	refreshValues();
 	var errorMessage = "";
@@ -26038,15 +26061,18 @@ function fetchTransactions()
     window.alert(errorMessage);
     return;
 	}
-	console.log("fetch transactions");
+	//console.log("fetch transactions");
 	document.getElementById("scratchPad").value = "";
 	foundPad = false;
 	var url =  "https://api.blockchair.com/bitcoin-sv/dashboards/address/" + userAddress;
     fetchDataGeneric(url, populateAllTrans);
-}, delayInMilliseconds);
+}, 
+
+delayInMilliseconds);
 
 }
 
+// cleans up op return data and populates scratchpad
 function retrieveOP_RETURN(OP_RETURNIn)
 {
 	   var cleanScriptData = OP_RETURNIn.substring(OP_RETURNIn.indexOf("OP_RETURN ")+ 10, OP_RETURNIn.length);
@@ -26069,6 +26095,7 @@ function getOPReturnData(value, index, array) {
   fetchDataGeneric(url, retrieveOP_RETURN);
 }
 
+// will test if any op return data was found and decrypted successfully
 function testScratchFound(decryptedScriptIn)
 {
 	if (decryptedScriptIn !== "")
