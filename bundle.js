@@ -25860,6 +25860,7 @@ var foundPad = false;
 var eventSelectList;
 var event;
 var payloadASM;
+var delayInMilliseconds = 700; //0.7 second
 
 // dom variables
 var userHandle = document.getElementById('userHandle').value;
@@ -25933,6 +25934,8 @@ function updatePass()
 
 function encryptScratchPad()
 {
+	setTimeout(function() {
+
 	refreshValues();
 	var errorMessage = "";
 	if (userPassword == "")
@@ -25954,6 +25957,8 @@ function encryptScratchPad()
     payloadASM = bsv.Script.buildDataOut(['scratchy.io', 'utf8', payload]).toASM();
     console.log(payloadASM);
     buildMoneyButton();
+
+    }, delayInMilliseconds);
 }
 
 
@@ -26015,6 +26020,8 @@ function populateAllTrans(dataIn)
 
 function fetchTransactions()
 {
+	setTimeout(function() {
+
 	refreshValues();
 	var errorMessage = "";
 	if (userPassword == "")
@@ -26036,6 +26043,8 @@ function fetchTransactions()
 	foundPad = false;
 	var url =  "https://api.blockchair.com/bitcoin-sv/dashboards/address/" + userAddress;
     fetchDataGeneric(url, populateAllTrans);
+}, delayInMilliseconds);
+
 }
 
 function retrieveOP_RETURN(OP_RETURNIn)

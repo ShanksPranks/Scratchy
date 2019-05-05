@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -14,10 +16,11 @@
   </head>
   <!-- style="background-color:#2BB56D"-->
   <body>
-    <div class="container">
+    <!--div class="container"-->
       <div class="jumbotron  text-center">
-        <h1><img src="content/inspect.gif" style="float:center;width:60px;height:60px;">Scratchy<i class="material-icons prefix" style="font-size: 100%"">lock</i></h1>
-        <p style="font-size: 200%;">Keep your doodles safely stashed away on the BSV blockchain with AES 128 military grade encryption<p>
+        <!--h1><img src="content/inspect.gif" style="float:center;width:60px;height:60px;">Scratchy<i class="material-icons prefix" style="font-size: 100%">lock</i></h1-->
+        <h1><img src="content/inspect.gif" style="float:center;width:60px;height:60px;">Scratchy<i class="material-icons prefix">lock</i></h1>
+        <p style="font-size: 90%">Keep your doodles safely stashed away on the BSV blockchain with AES 128 military grade encryption<p>
         </div>
             <input class="validate" id="pass" type="hidden"/>
             <input class="validate" id="addr" type="hidden" />
@@ -28,34 +31,34 @@
             <div class="row">
               <div class="input-field col s12">
                 <i class="material-icons prefix">mode_edit</i>
-                <textarea class="materialize-textarea" id="scratchPad"  name="scratchPad" cols = "300", rows = "8", style="font-size: 200%;border-radius: 6px;" ></textarea>
+                <textarea class="materialize-textarea" id="scratchPad"  name="scratchPad"></textarea>
                 <label for="scratchPad" >Scratch Pad</label>
               </div>
               <div class="row">
                 <div class="input-field col s6">
                   <i class="material-icons prefix">account_circle</i>
-                  <input id="userHandle" name="userHandle" type="text" class="validate" style="font-size: 200%; border-radius: 6px;">
+                  <input id="userHandle" name="userHandle" type="text" class="validate">  
                   <label for="userHandle">User Name</label>
                 </div>
                 <div class="input-field col s6">
                   <i class="material-icons prefix">lock</i>
-                  <input id="userPassword" type="password" class="validate" name="userPassword" style="font-size: 200%; border-radius: 6px;">
+                  <input id="userPassword" type="password" class="validate" name="userPassword">
                   <label for="userPassword">Password</label>
                 </div>
-                <div class="input-field col s4">
-                  <button class="btn waves-effect waves-light" type="submit" name="getScratchPad" id="getScratchPad">Fetch Scratch Pad
+                <div class="input-field col s6">
+                  <button class="btn waves-effect waves-light" type="submit" name="getScratchPad" id="getScratchPad">Fetch
                   <i class="material-icons left">send</i>
                   </button>
                 </div>
-                <div class="input-field col s4">
-                  <button class="btn waves-effect waves-light" type="submit" name="sendScratchPad" id="sendScratchPad">Send Scratch Pad
+                <div class="input-field col s6">
+                  <button class="btn waves-effect waves-light" type="submit" name="sendScratchPad" id="sendScratchPad">Send
                   <i class="material-icons left">send</i>
                   </button>
                 </div>
-                <div class="input-field col s4">
+                <div class="input-field col s6">
                   <div id='my-money-button'></div>
                 </div>
-              </div>
+              <!--/div-->
           <script src="bundle.js"></script>
         </body>
       </html>
