@@ -1,11 +1,13 @@
 # Scratchy
-Scratchy is a pure client side protocol for encrypting, storing and retrieving data on the BSV blockchain at scale.
+Scratchy is a protocol for encrypting, storing and retrieving data on the BSV blockchain at scale.
 <img  style="float: right;" src="https://www.catship.co.za/scratchy/content/UITeaser.png" width="250">
 
-You can test the app here (best on mobile): https://catship.co.za/scratchy/scratchy.html
+You can test the first alpha draft of the app here (best on mobile): https://catship.co.za/scratchy/scratchy.html
 
 ## Overview
-The key purpose of the protocol is that it allows a user to only have to remember a single password / passphrase and then they can store sensitive data on the blockchain where it can never get lost and can always be retrieved provided that they remember their username and password / passphrase. The key to the protocol is simplicity so that the attack surface area is as small as possible so all code should be kept to a bare minimum and be as simple as possible.
+The key purpose of the protocol is to allow people to use encryption easily in their everyday lives to make things like storing passwords and sensitive information as easy as humanly possible.
+It should also be reassuring to users that data is stored on the blockchain where it can never get erased and can always be easily retrieved no matter where they are, an internet cafe or just borrowing an old phone from someone.
+The third main benefit of Scratchy is that the event mode provides a simple method to ensure pure fairness and transparency in every day interactions involving multiple parties.
 
 ## Applications
 The scratchy protocol opens up to a potentially endless number of applications. There are two main modes to it, the first called "local mode" is when all the encryption happens in the users web client and the second is called "event mode" where the creator of an event sends the username and password to the event service and all encryption is handled by the service. 
