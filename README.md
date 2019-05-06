@@ -11,7 +11,7 @@ The third main benefit of Scratchy is that the event mode provides a simple meth
 
 ## Applications
 The scratchy protocol opens up to a potentially endless number of applications. There are two main modes to it, the first called "local mode" is when all the encryption happens in the users web client and the second is called "event mode" where the creator of an event sends the username and password to the event service and all encryption is handled by the service. 
-In this mode any user can select the event can then send their scratchpad to the event service and the encryption is handled inside the microservice before being posted to the blockchain.
+In this mode any user can select an event and then send their scratchpad to the event service. The encryption is handled in the service before the encrypted scratchpad is posted to the blockchain.
 
 Some examples of potential applications are as follows:
 1. Two friends wish to have a serverless secure messenging app to be able to communicate, they choose a single shared username and password and then are able to send and retrieve messages to each other using the scratchy app. (local mode)
@@ -19,8 +19,8 @@ Some examples of potential applications are as follows:
 When the test is over the username and password for the event becomes public and everyone can view all the various submissions ensuring that the marking is fair and just. (event mode)
 3. Fun Scavenger hunt - Similarly to the example above, the unique event id for the scaveneger hunt is shared with the participants. The team leader can then choose the event from the dropdown list inside the scratchy app which will automatically direct the traffic to the event microservice over https. As soon as a team finds an item in the scavenger hunt they can quickly post the details proving that they found the item before other teams. (event mode)
 4. Silent Auction - Once again using the event API, attendees of a silent auction will choose the event and then begin bidding on an item that they desire. The event can be set up in the microservice so that not even the organiser is allowed to view the posted data until after the auction is finished ensuring a totally blind and silent auction is carried out with no tampering.(event mode)
-5. An inventor wants to copywrite an idea that he/she has come up with but they do not want to share the idea publicly yet. By using the scratchy app to quickly jot down the idea and send it to the blockchain encrypted they can ensure that they can prove that they owned the art at the time of posting. (local mode)
-6. A tech fundi is tired of having to remember all of their passwords to all the different apps and sites they have, they can just remember a single strong password and save all the rest of their passwords using the scratchy app. (local mode)
+5. An inventor wants to copywrite an idea that she has come up with but she does not want to share the idea publicly just yet. By using the scratchy app to quickly jot down the idea and send it to the blockchain encrypted she can ensure that she can prove that she owned the art at the time of posting. (local mode)
+6. A tech fundi is tired of having to remember all of his passwords to all his different apps and sites he uses, if he posts all that information encrypted to the bsv blockchain using scratchy then he only has to remember a single strong password. (local mode)
 
 ## Reference Implementation
 The Scratchy app here demonstrates this using a simple scratch pad where users can type in / paste any info that they want to encrypt and post to the blockchain using the moneybutton's OP_RETURN implementation.
