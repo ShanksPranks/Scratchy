@@ -24,8 +24,8 @@ When the test is over the username and password for the event becomes public and
 
 ## Reference Implementation
 The Scratchy app here demonstrates this using a simple scratch pad where users can type in / paste any info that they want to encrypt and post to the blockchain using the moneybutton's OP_RETURN implementation.
-Users can retrieve the data at any time by simply entering their user name and password / passphrase and clicking fetch button which currently uses blockchairs API to retrieve the data and bico.media API to unbundle the payload. All the moneybutton, bico.media and blockchair API's can be switched out for any other substitute without affecting the protocol. Likewise the brainwallet library can and probably should be switched out for any wallet generation algorithm that will take any utf-8 text as a seed.
-The app also periodically fetches the event data from the event API which has an end date in the future and users can use the drop down list to select an event and use the app in event mode.
+Users can retrieve the data at any time by simply entering their user name and password / passphrase and clicking fetch button which currently uses blockchairs API to retrieve the data and bico.media API to unbundle the payload. All the moneybutton, bico.media and blockchair API's can be switched out for any other substitute without affecting the protocol. Likewise the brainwallet library used for calculating the routing addresses can and probably should be switched out for any wallet generation algorithm that will take any utf-8 text as a seed.
+The app also periodically fetches the event data from the event API for all events which have an end date in the future, in the future more filtering criteria shuold be added like geography and tags. Users can use the drop down list to select an event and then the app will automatically switch to event mode.
 The user can also click the create new event button which allows them to create a new event and send it to the event API for others to use.
 
 <img  style="float: left;" src="https://www.catship.co.za/scratchy/content/SCArc.png" width="600">
