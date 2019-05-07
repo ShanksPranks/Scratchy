@@ -6,8 +6,8 @@ You can test the first alpha draft of the app here (best on mobile): https://cat
 
 ## Overview
 The key purpose of the protocol is to allow people to use encryption easily in their everyday lives to make things like storing passwords and sensitive information as easy as humanly possible.
-It should also be reassuring to users that data is stored on the blockchain where it can never get erased and can always be easily retrieved no matter where they are, an internet cafe or just borrowing an old phone from someone.
-The third main benefit of Scratchy is that the event mode provides a simple method to ensure pure fairness and transparency in every day interactions involving multiple parties.
+It should also be reassuring to users that their data is stored on the blockchain where it can never get erased and can always be easily retrieved no matter where they are, an internet cafe or just borrowing an old phone from someone.
+The third main benefit of Scratchy is that the event mode provides a simple method to ensure fairness and transparency in every day interactions involving multiple parties.
 
 ## Applications
 The scratchy protocol opens up to a potentially endless number of applications. There are two main modes to it, the first called "local mode" is when all the encryption happens in the users web client and the second is called "event mode" where the creator of an event sends the username and password to the event service and all encryption is handled by the service. 
