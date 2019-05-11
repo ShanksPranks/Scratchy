@@ -1,6 +1,23 @@
 /* eslint-disable class-methods-use-this */
-import db from '../db/event_db';
-import dbs from '../db/event_dbS';
+//import db from '../db/event_db';
+//import dbs from '../db/event_dbS';
+var eventPath = '../event_service/db/events.json';
+
+var db;
+
+var fs = require('fs');
+
+/*
+fs.open('../event_service/db/events.json', 'r', function (err, file) {
+  if (err) throw err;
+  console.log('Saved!');
+});
+*/
+
+fs.readFile(eventPath, function(err, data) {
+    console.log(data.toString());
+    db = JSON.parse(data);
+  });
 
 // npm libraries
 var crypto = require('crypto');
@@ -8,6 +25,7 @@ var crypto = require('crypto');
 // gl0bals 
 var myEventPassword = "";
 var myEventID = 0;
+var myScratchPad = "";
 
 // generic encrypt 
 function encryptData(dataIn, passwordIn)
@@ -27,9 +45,12 @@ function hidePassword(value, index, array) {
 }
 
 function getEventPassword(value, index, array) {
+  console.log(value["eventID"]);
+  console.log(myEventID);
   if (value["eventID"] == myEventID)
   {
     myEventPassword = value["eventPassword"];
+    console.log('found');
   }
 }
 
@@ -37,57 +58,24 @@ function getEventPassword(value, index, array) {
 class EventsController {
 
     getScratchPad(req, res) {
-    const scratchPadID = parseInt(req.params.scratchPadID, 10);
-    dbs.map((ScratchPad) => {
-      if (ScratchPad.scratchPadID === scratchPadID) {
+    myScratchPad = req.body.scratchPad;
+    myEventID = parseInt(req.body.eventID,10);
         myEventPassword = "";
-        myEventID = ScratchPad.eventID;
         db.forEach(getEventPassword);
-        ScratchPad.encryptedScratchPad = encryptData(ScratchPad.scratchPad, myEventPassword);
+        console.log(myEventPassword);
+        var encryptedScratchPad = encryptData(myScratchPad, myEventPassword);
+        if (encryptedScratchPad == "")
+        {
+            return res.status(404).send({
+            success: 'false',
+            message: 'Unable to process scratchpad',
+            });
+        }
         return res.status(200).send({
           success: 'true',
-          message: 'ScratchPad retrieved successfully',
-          ScratchPad,
+          message: 'ScratchPad encrypted successfully',
+          encryptedScratchPad,
         });
-      }
-    });
-    return res.status(404).send({
-      success: 'false',
-      message: 'ScratchPad does not exist',
-    });
-  }
-
-  createScratchPad(req, res) {
-    if (!req.body.userName) {
-      return res.status(400).send({
-        success: 'false',
-        message: 'userName is required',
-      });
-    } else if (!req.body.scratchPad) {
-      return res.status(400).send({
-        success: 'false',
-        message: 'scratchPad is required',
-      });
-    }
-    else if (!req.body.eventID) {
-      return res.status(400).send({
-        success: 'false',
-        message: 'eventID is required',
-      });
-    }
-    const ScratchPad = {
-      scratchPadID: dbs.length + 1,
-      eventID: req.body.eventID,
-      userName: req.body.userName,
-      scratchPad: req.body.scratchPad,
-      encryptedScratchPad: "",
-    };
-    dbs.push(ScratchPad);
-    return res.status(201).send({
-      success: 'true',
-      message: 'ScratchPad added successfully',
-      ScratchPad,
-    });
   }
 
   getAllEvents(req, res) {
@@ -150,6 +138,11 @@ class EventsController {
       eventPassword: req.body.eventPassword,
     };
     db.push(Event);
+    // persist to storage
+    fs.writeFile(eventPath, JSON.stringify(db, null, 2)  , function (err) {
+  if (err) throw err;
+  console.log('Saved!');
+});
     return res.status(201).send({
       success: 'true',
       message: 'Event added successfully',
@@ -198,7 +191,11 @@ class EventsController {
     };
 
     db.splice(itemIndex, 1, newEvent);
-
+    // persist to storage
+    fs.writeFile(eventPath, JSON.stringify(db, null, 2)  , function (err) {
+  if (err) throw err;
+  console.log('Saved!');
+});
     return res.status(201).send({
       success: 'true',
       message: 'Event updated successfully',
@@ -224,7 +221,11 @@ class EventsController {
       });
     }
     db.splice(itemIndex, 1);
-
+    // persist to storage
+    fs.writeFile(eventPath, JSON.stringify(db, null, 2)  , function (err) {
+  if (err) throw err;
+  console.log('Saved!');
+});
     return res.status(200).send({
       success: 'true',
       message: 'Event deleted successfuly',
