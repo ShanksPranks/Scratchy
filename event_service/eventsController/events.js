@@ -27,6 +27,41 @@ var myEventPassword = "";
 var myEventID = 0;
 var myScratchPad = "";
 
+function hex2bin(hex)
+{
+  var bytes = [], str;
+  for(var i=0; i< hex.length-1; i+=2)
+    bytes.push(parseInt(hex.substr(i, 2), 16));
+  return String.fromCharCode.apply(String, bytes);
+}
+
+function encryptCustom(textIn, passwordIn) {
+var data = textIn;
+var password = passwordIn;
+var iv = '0000000000000000';
+var password_hash = crypto.createHash('sha256').update(password,'utf8').digest('hex');
+var key = hex2bin(password_hash);
+password_hash = Buffer.alloc(32,key,"binary");
+var cipher = crypto.createCipheriv('aes-256-cbc', password_hash, iv);
+var encryptedData = cipher.update(data, 'utf8', 'base64') + cipher.final('base64');
+console.log('Base64 Encrypted:', encryptedData);
+return encryptedData;
+}
+
+function decryptCustom(textIn, passwordIn) {
+var data = textIn;
+var password = passwordIn;
+var iv = '0000000000000000';
+var password_hash = crypto.createHash('sha256').update(password,'utf8').digest('hex');
+var key = hex2bin(password_hash);
+password_hash = Buffer.alloc(32,key,"binary");
+var decipher = crypto.createDecipheriv('aes-256-cbc', password_hash, iv);
+var decryptedText = decipher.update(encryptedData, 'base64', 'utf8') + decipher.final('utf8');
+//console.log('Decrypted Text:', decryptedText)
+return decryptedText;
+}
+
+
 // generic encrypt 
 function encryptData(dataIn, passwordIn)
 {
@@ -62,8 +97,8 @@ class EventsController {
     myEventID = parseInt(req.body.eventID,10);
         myEventPassword = "";
         db.forEach(getEventPassword);
-        console.log(myEventPassword);
-        var encryptedScratchPad = encryptData(myScratchPad, myEventPassword);
+        //console.log(myEventPassword);
+        var encryptedScratchPad = encryptCustom(myScratchPad,myEventPassword);
         if (encryptedScratchPad == "")
         {
             return res.status(404).send({
