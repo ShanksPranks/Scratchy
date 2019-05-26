@@ -1,49 +1,60 @@
 <?php
+// restfull API end point where user posts the new valid event
 
+http_response_code(500);
+
+// error logging
 ini_set("log_errors", 1);
 ini_set("error_log", "php-error.log");
 
-// end point where user posts the new valid transaction
-$catShipTransaction       = $_POST["jsonObject"];
-$catShipTransactionObject = json_decode($catShipTransaction, true); // make a json object
-// there is no need to validate the new transaction server side as peers will validate
+try {
 
-// get the existing transaction pool
-$catShipTransactionPoolFileName = "../json/catShipTransactionPool.json";
-
-
-// do a head fake to create this fiel if it doesent exist because php doesent have a read/write, create if not exists
-if (!file_exists($catShipTransactionPoolFileName)) {
-    $file = fopen($catShipTransactionPoolFileName, "w");
+// open the current events database and load it into an array
+$eventFileName = "db/events.json";
+// file head fake
+if (!file_exists($eventFileName)) {
+    $file = fopen($eventFileName, "w");
     fclose($file);
 }
+$eventFile = fopen($eventFileName, "r+") or die("Unable to open file!");
+$eventFileString = file_get_contents($eventFileName);
+$eventsObject = json_decode($eventFileString, true); // make a json object
+fclose($eventFile);
 
-$catShipTransactionPoolFile = fopen($catShipTransactionPoolFileName, "r+") or die("Unable to open file!");
+$tenseCode = $_GET["tenseCode"];
 
-$catShipTransactionPoolString = file_get_contents($catShipTransactionPoolFileName);
-$catShipTransactionPoolObject = json_decode($catShipTransactionPoolString, true); // make a json object
-fclose($catShipTransactionPoolFile);
+$dateNow = date('Y-m-d', time());
 
-if (empty($catShipTransactionPoolObject)) {
-    //error_log("file object was null");
-    //error_log($catShipTransactionPoolObject[0]["senderAddress"]);
-    $catShipTransactionPoolObject = array(
-        $catShipTransactionObject
-    );
-} else {
-    //error_log("file object was not null, pushing");
-    //error_log($catShipTransactionPoolObject[0]["senderAddress"]);
-    array_push($catShipTransactionPoolObject, $catShipTransactionObject);
+$validEvents = [];
+
+foreach ($eventsObject as $obby) {
+    $start = DateTime::createFromFormat('Y-m-d', $obby["eventStartDate"])->format('Y-m-d');
+    $end = DateTime::createFromFormat('Y-m-d', $obby["eventEndDate"])->format('Y-m-d');
+   if ($dateNow >= $start &&  $dateNow <= $end )
+    {
+        array_push($validEvents,$obby);
+    }
 }
-;
 
-// turn object back into string
-$catShipTransactionPoolString = json_encode($catShipTransactionPoolObject);
-$catShipTransactionPoolFile = fopen($catShipTransactionPoolFileName, "w") or die("Unable to open file!");
+        http_response_code(200);
+        $successObj = new \stdClass();
+        $successObj->success =  'true';
+        $successObj->message = 'Events retieved successfully';
+        $successObj->events = $validEvents;
 
-// write and close the file
-fwrite($catShipTransactionPoolFile, $catShipTransactionPoolString);
-fclose($catShipTransactionPoolFile);
+        print json_encode($successObj,JSON_PRETTY_PRINT);
+
+}
+
+catch(Exception $e) {
+
+        $failObj = new \stdClass();
+        $failObj->success =  'false';
+        $failObj->message = $e->getMessage();
+        $failObj->events = "";
+
+        print json_encode($failObj,JSON_PRETTY_PRINT);
+}
 
 
 ?>
