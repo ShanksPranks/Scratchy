@@ -25901,9 +25901,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 eventList.addEventListener('click', showEvents);
 
+function addItem(eventIDIn,eventNameIn){
+
+    var li = document.createElement("li");
+    li.setAttribute('id',eventIDIn );
+    li.appendChild(document.createTextNode(eventNameIn));
+    eventList.appendChild(li);
+}
+
 function getEvents() 
 {
-fetchDataGeneric("https://localhost/scratchy/event_service_php/getEvents.php?tenseCode=0", populateAllEvents);
+  console.log("getting evets..");
+fetchDataGeneric("https://catship.co.za/scratchy/event_service_php/getEvents.php?tenseCode=0", populateAllEvents);
 
 }
 
@@ -25911,7 +25920,23 @@ getEvents();
 
 function populateAllEvents(dataIn) {
   var objIn = JSON.parse(dataIn);
-  console.log(objIn);
+
+for(var propt in objIn){
+  if (propt == "events")
+  {
+    console.log(objIn[propt]);
+    objIn[propt].forEach(item => 
+      addItem(item.eventID,item.eventName)
+      );
+   /* {
+      console.log(k);
+    //console.log(objIn[propt].eventID + " and "  + objIn[propt].eventName);
+    //addItem(objIn[propt].eventID,objIn[propt].eventName); 
+    }
+    */
+    
+  }
+  }
 }
 
 function hex2bin(hex) {
@@ -25965,6 +25990,8 @@ function showEvents() {
   var instance = M.FormSelect.getInstance(elems[0]);
   event = instance.getSelectedValues();
 }
+
+
 
 //uncomment for browserfy 
 function buildMoneyButton() {
