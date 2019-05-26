@@ -1,0 +1,22 @@
+[
+  {
+    "eventID": 1,
+    "eventName": "Jo's scavenger hunt",
+    "eventStartDate": "2019-05-05T18:25:43.511Z",
+    "eventEndDate": "2019-05-05T18:25:43.511Z",
+    "eventPassword": "MojoJojo1652"
+  },
+  {
+    "eventID": 2,
+    "eventName": "DMV Learners Test 1052",
+    "eventStartDate": "2019-05-05T18:25:43.511Z",
+    "eventEndDate": "2019-05-05T18:25:43.511Z",
+    "eventPassword": "MojoJojo1652"
+  },
+  {
+    "eventID": 3,
+    "eventName": "DMV Learners Licence 2910",
+    "eventStartDate": "2019-06-02T18:25:43.511Z",
+    "eventPassword": "Dynamic2019"
+  }
+]
