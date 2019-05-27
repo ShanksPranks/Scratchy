@@ -2,7 +2,7 @@
 Scratchy is a protocol for encrypting, storing and retrieving data on the BSV blockchain at scale.
 <img  style="float: right;" src="https://www.catship.co.za/scratchy/content/UITeaser.png" width="250">
 
-You can test the first alpha draft of the app here (best on mobile): https://catship.co.za/scratchy/scratchy.html
+You can test the first alpha draft of the app here (best on mobile): scratchy.co.za
 
 ## Overview
 The key purpose of the protocol is to allow people to use encryption easily in their everyday lives to make things like storing passwords and sensitive information as easy as humanly possible.
