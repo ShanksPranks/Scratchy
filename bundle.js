@@ -25881,12 +25881,16 @@ var menu = document.getElementById('menuButton');
 var infoButton = document.getElementById('infoButton');
 var eventList = document.getElementById('eventList');
 
+var scratchyWindow = document.getElementsByClassName("scratchy");
+var eventWindow = document.getElementsByClassName("pastevents");
+
 // listeners
 buttonGet.addEventListener('click', fetchTransactions);
 buttonSend.addEventListener('click', encryptScratchPad);
 userHandleField.addEventListener('change', updatePass);
 userPasswordField.addEventListener('change', updatePass);
 scratchPadField.addEventListener('change', updatePass);
+
 
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.tooltipped');
@@ -25901,13 +25905,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 eventList.addEventListener('click', showEvents);
 
-function addItem(eventIDIn,eventNameIn){
-
-    var li = document.createElement("li");
-    li.setAttribute('id',eventIDIn );
-    li.appendChild(document.createTextNode(eventNameIn));
-    eventList.appendChild(li);
-}
+$(document).ready(function(){
+    $('.tabs').tabs();
+  });
 
 function getEvents() 
 {
@@ -25921,22 +25921,29 @@ getEvents();
 function populateAllEvents(dataIn) {
   var objIn = JSON.parse(dataIn);
 
+
+    var x = document.getElementById("mySelect");
+
+  
 for(var propt in objIn){
   if (propt == "events")
   {
     console.log(objIn[propt]);
     objIn[propt].forEach(item => 
-      addItem(item.eventID,item.eventName)
-      );
-   /* {
-      console.log(k);
-    //console.log(objIn[propt].eventID + " and "  + objIn[propt].eventName);
-    //addItem(objIn[propt].eventID,objIn[propt].eventName); 
+    {
+        var option = document.createElement("option");
+  option.text = item.eventName;
+  x.add(option);
     }
-    */
-    
+
+      );
   }
   }
+
+      var elems = document.querySelectorAll('select');
+  var instances = M.FormSelect.init(elems, {});
+
+  
 }
 
 function hex2bin(hex) {

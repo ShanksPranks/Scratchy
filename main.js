@@ -32,12 +32,16 @@ var menu = document.getElementById('menuButton');
 var infoButton = document.getElementById('infoButton');
 var eventList = document.getElementById('eventList');
 
+var scratchyWindow = document.getElementsByClassName("scratchy");
+var eventWindow = document.getElementsByClassName("pastevents");
+
 // listeners
 buttonGet.addEventListener('click', fetchTransactions);
 buttonSend.addEventListener('click', encryptScratchPad);
 userHandleField.addEventListener('change', updatePass);
 userPasswordField.addEventListener('change', updatePass);
 scratchPadField.addEventListener('change', updatePass);
+
 
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.tooltipped');
@@ -52,9 +56,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 eventList.addEventListener('click', showEvents);
 
+$(document).ready(function(){
+    $('.tabs').tabs();
+  });
+
 function getEvents() 
 {
-fetchDataGeneric("https://localhost/scratchy/event_service_php/getEvents.php?tenseCode=0", populateAllEvents);
+  console.log("getting evets..");
+fetchDataGeneric("https://catship.co.za/scratchy/event_service_php/getEvents.php?tenseCode=0", populateAllEvents);
 
 }
 
@@ -62,7 +71,30 @@ getEvents();
 
 function populateAllEvents(dataIn) {
   var objIn = JSON.parse(dataIn);
-  console.log(objIn);
+
+
+    var x = document.getElementById("mySelect");
+
+  
+for(var propt in objIn){
+  if (propt == "events")
+  {
+    console.log(objIn[propt]);
+    objIn[propt].forEach(item => 
+    {
+        var option = document.createElement("option");
+  option.text = item.eventName;
+  x.add(option);
+    }
+
+      );
+  }
+  }
+
+      var elems = document.querySelectorAll('select');
+  var instances = M.FormSelect.init(elems, {});
+
+  
 }
 
 function hex2bin(hex) {
@@ -116,6 +148,8 @@ function showEvents() {
   var instance = M.FormSelect.getInstance(elems[0]);
   event = instance.getSelectedValues();
 }
+
+
 
 //uncomment for browserfy 
 function buildMoneyButton() {

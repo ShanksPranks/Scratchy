@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <style>
+.tabs .tab a:hover, .tabs .tab a.active {
+    background-color: transparent;
+    color: black  !important;
+}
+</style>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -16,18 +23,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </head>
   <body>
+
+
     <div class="jumbotron  text-center" style="margin:0;">
-      
+          
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s4" ><a class="grey lighten-5 black-text" href="#scratchy">Scratchy</a></li>
+        <li class="tab col s4"><a class="grey lighten-5 black-text" href="#pastevents">Past Events</a></li>
+   
+  
+<li class="tab col s4">
       <button class="btn tooltipped" data-position="left" type="submit" name="infoButton" id="infoButton" data-tooltip=
       "<p>Enter data in the scratch pad and then enter a unique username and very strong password / passphrase and hit the send button. <p>Swipe the money button to complete the transaction and save your data encrypted to the BSV blockchain. <p>Once you have sent the data you can easily retrieve it and decrypt it again by clicking the fetch button.
         " style="float:right;">
         <i class="material-icons prefix">info</i>
         </button>
+</li>
+              </ul>
+          </div>
         <h1>
         <img src="content/inspect.gif" style="float:center;width:60px;height:60px;">Scratchy<i class="material-icons prefix">lock</i>
         </h1>
         <p style="font-size: 90%">Keep your doodles safely stashed away on the BSV blockchain with AES 128 encryption<p>
         </div>
+          <div id="scratchy">
         <input class="validate" id="pass" type="hidden"/>
         <input class="validate" id="addr" type="hidden" />
         <input class="validate" id="hash" type="hidden"/>
@@ -65,11 +85,15 @@
                 <div id='my-money-button'></div>
               </div> 
             <div class="input-field col s6" id="eventList" > <i class="material-icons prefix">event</i>
-              <select>
+              <select id="mySelect">
                 <option value="" disabled selected>None</option>
               </select>
             </div>
             </div>
+          </div>
+          <div id="pastevents">
+            nada
+          </div>
             <script src="bundle.js"></script>
           </body>
         </html>
